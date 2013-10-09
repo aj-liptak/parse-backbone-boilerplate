@@ -30,21 +30,38 @@ define([
     loginUser: function (e) {
       e.stopPropagation();
       var user = new Parse.User();
-      user.setUsername($('#username').val(), {});
-      user.setPassword($('#password').val(), {});
+      var username = $('#username').val();
+      var password = $('#password').val();
 
-      user.logIn({
-        success: function(user) {
-          console.log(user);
-        },
-        error: function(user, error) {
-          alert("Error: " + error.code + " " + error.message);
-        }
-      });
+      this.validateInputs(username, password);
+
+      if(username.length > 0 && password.length > 0){
+        user.setUsername(username, {});
+        user.setPassword(password, {});
+
+        user.logIn({
+          success: function(user) {
+            console.log(user);
+          },
+          error: function(user, error) {
+            $('.login-error').show();
+          }
+        });
+
+      }
+    },
+
+    validateInputs: function (username, password) {
+
+      username.length < 1 ? $('.username-error').show() : $('.username-error').hide();
+
+      password.length < 1 ? $('.password-error').show() : $('.password-error').hide();
+
     },
 
     goToSignUp: function (e) {
       e.stopPropagation();
+      this.$el.unbind('click');
       Parse.history.navigate('signUp', true);
     }
   });

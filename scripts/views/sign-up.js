@@ -28,26 +28,47 @@ define([
       'click input[data-name="go-to-login"]': "goToLogin"
     },
 
-    registerUser: function (e){
+    registerUser: function (e) {
       e.stopPropagation();
       var user = new Parse.User();
-      user.set('username', $('#username').val());
-      user.set('password', $('#password').val());
-      user.set('email', $('#email').val());
+      var username = $('#username').val();
+      var password = $('#password').val();
+      var email = $('#email').val();
 
-      user.signUp(null, {
-        success: function(user) {
-          // Hooray! Let them use the app now.
-        },
-        error: function(user, error) {
-          // Show the error message somewhere and let the user try again.
-          alert("Error: " + error.code + " " + error.message);
-        }
-      });
+      this.validateInputs(username, password, email);
+
+      if(username.length > 0 && password.length > 0 && email.length > 0) {
+
+        user.setUsername(username, {});
+        user.setPassword(password, {});
+        user.setEmail(email, {});
+
+        user.signUp(null, {
+          success: function(user) {
+            console.log(user);
+          },
+          error: function(user, error) {
+            // Show the error message somewhere and let the user try again.
+            $('.sign-up-error').show();
+          }
+        });
+
+      }
+    },
+
+    validateInputs: function (username, password, email) {
+
+      username.length < 1 ? $('.username-error').show() : $('.username-error').hide();
+
+      password.length < 1 ? $('.password-error').show() : $('.password-error').hide();
+
+      email.length < 1 ?  $('.email-error').show() :  $('.email-error').hide();
+
     },
 
     goToLogin: function (e) {
       e.stopPropagation();
+      this.$el.unbind('click');
       Parse.history.navigate('login', true);
     }
   });
