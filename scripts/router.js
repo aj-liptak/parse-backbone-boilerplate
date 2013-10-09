@@ -31,18 +31,9 @@ define([
   });
 
   var initialize = function(){
-    var app_router = routerSingleton();
-    Parse.history.start({pushState: true});
+    var app_router = new AppRouter();
+    Parse.history.start({pushState: true}); //Starts Parse.History which allows user to navigate using back and forward buttons
     Parse.history.navigate('login', true);
-  };
-
-  var routerSingleton = function() {
-    if(!this.router){
-      this.router = new AppRouter();
-      return this.router;
-    } else{
-      return this.router;
-    }
   };
 
   return {
