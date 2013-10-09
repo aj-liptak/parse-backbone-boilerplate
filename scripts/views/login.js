@@ -11,7 +11,7 @@ define([
 ], function($, _, Parse, Router, Animate, LoginTemplate){
   var LoginView = Parse.View.extend({
 
-    el: $('#main'),
+    el: $('#container'),
 
     render: function(){
       // Using Underscore we can compile our template with data

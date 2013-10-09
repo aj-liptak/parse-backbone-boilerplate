@@ -4,17 +4,15 @@ define([
   'underscore',
   'parse',
   'scripts/views/login',
-  'scripts/views/sign-up'
-], function($, _, Parse, LoginView, SignUpView) {
+  'scripts/views/sign-up',
+  'scripts/views/404'
+], function($, _, Parse, LoginView, SignUpView, ErrorView) {
   var AppRouter = Parse.Router.extend({
     routes: {
       // Define some URL routes
       'login': 'showLogin',
       'signUp': 'showSignUp',
-      '': 'showLogin'
-
-      // Default
-      //'*actions': 'showLogin'
+      '*actions': 'errorPage'
     },
 
     showLogin: function() {
@@ -24,15 +22,20 @@ define([
       loginView.render();
     },
 
-    showSignUp: function () {
+    showSignUp: function() {
       var signUpView = new SignUpView();
       signUpView.render();
+    },
+
+    errorPage: function() {
+      var errorView = new ErrorView();
+      errorView.render();
     }
   });
 
   var initialize = function(){
     var app_router = new AppRouter();
-    Parse.history.start({pushState: true}); //Starts Parse.History which allows user to navigate using back and forward buttons
+    Parse.history.start({pushState: true});
     Parse.history.navigate('login', true);
   };
 

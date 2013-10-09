@@ -6,8 +6,7 @@ define([
 ], function($){
 
   var slideIn = function (container, element) {
-    $(container).addClass('animate fadeOutDownBig');
-    $(element).addClass('animate fadeInUpBig');
+    $(container).addClass('animated fadeInUpBig');
     $(container).empty().append(element);
   }
 

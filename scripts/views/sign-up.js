@@ -12,7 +12,7 @@ define([
   // They will not be accessible in the global scope
   var signUpView = Parse.View.extend({
 
-    el: $('#main'),
+    el: $('#container'),
 
     render: function(){
       // Using Underscore we can compile our template with data
@@ -24,7 +24,8 @@ define([
     },
 
     events: {
-      'click input[data-name="submit"]': "registerUser"
+      'click input[data-name="submit"]': "registerUser",
+      'click input[data-name="go-to-login"]': "goToLogin"
     },
 
     registerUser: function (e){
@@ -43,6 +44,11 @@ define([
           alert("Error: " + error.code + " " + error.message);
         }
       });
+    },
+
+    goToLogin: function (e) {
+      e.stopPropagation();
+      Parse.history.navigate('login', true);
     }
   });
 
