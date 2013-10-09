@@ -30,12 +30,15 @@ define([
     loginUser: function (e) {
       e.stopPropagation();
       var user = new Parse.User();
-      var username = $('#username').val();
-      var password = $('#password').val();
+      var username = this.$('#username').val();
+      var password = this.$('#password').val();
 
       this.validateInputs(username, password);
 
       if(username.length > 0 && password.length > 0){
+
+        var that = this;
+
         user.setUsername(username, {});
         user.setPassword(password, {});
 
@@ -44,7 +47,7 @@ define([
             console.log(user);
           },
           error: function(user, error) {
-            $('.login-error').show();
+            that.$('.login-error').show();
           }
         });
 
@@ -53,9 +56,9 @@ define([
 
     validateInputs: function (username, password) {
 
-      username.length < 1 ? $('.username-error').show() : $('.username-error').hide();
+      username.length < 1 ? this.$('.username-error').show() : this.$('.username-error').hide();
 
-      password.length < 1 ? $('.password-error').show() : $('.password-error').hide();
+      password.length < 1 ? this.$('.password-error').show() : this.$('.password-error').hide();
 
     },
 

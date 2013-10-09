@@ -31,13 +31,15 @@ define([
     registerUser: function (e) {
       e.stopPropagation();
       var user = new Parse.User();
-      var username = $('#username').val();
-      var password = $('#password').val();
-      var email = $('#email').val();
+      var username = this.$('#username').val();
+      var password = this.$('#password').val();
+      var email = this.$('#email').val();
 
       this.validateInputs(username, password, email);
 
       if(username.length > 0 && password.length > 0 && email.length > 0) {
+
+        var that = this;
 
         user.setUsername(username, {});
         user.setPassword(password, {});
@@ -49,7 +51,7 @@ define([
           },
           error: function(user, error) {
             // Show the error message somewhere and let the user try again.
-            $('.sign-up-error').show();
+            that.$('.sign-up-error').show();
           }
         });
 
@@ -58,11 +60,11 @@ define([
 
     validateInputs: function (username, password, email) {
 
-      username.length < 1 ? $('.username-error').show() : $('.username-error').hide();
+      username.length < 1 ? this.$('.username-error').show() : this.$('.username-error').hide();
 
-      password.length < 1 ? $('.password-error').show() : $('.password-error').hide();
+      password.length < 1 ? this.$('.password-error').show() : this.$('.password-error').hide();
 
-      email.length < 1 ?  $('.email-error').show() :  $('.email-error').hide();
+      email.length < 1 ?  this.$('.email-error').show() :  this.$('.email-error').hide();
 
     },
 
