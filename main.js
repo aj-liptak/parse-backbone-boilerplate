@@ -2,12 +2,17 @@
   paths: {
     "jquery": "scripts/libs/jquery-1.8.3",
     "underscore": "scripts/libs/underscore-amd",
-    "parse": "scripts/libs/parse"
+    "parse": "scripts/libs/parse",
+    "handlebars": "scripts/libs/handlebars"
   },
   shim: {
     "parse": {
       deps: ["jquery", "underscore"],
       exports: "Parse"
+    },
+
+    "handlebars": {
+      exports: "Handlebars"
     }
   }
 });

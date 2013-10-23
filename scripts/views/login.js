@@ -45,6 +45,7 @@ define([
         user.logIn({
           success: function(user) {
             console.log(user);
+            Parse.history.navigate('contacts', true);
           },
           error: function(user, error) {
             that.$('.login-error').show();

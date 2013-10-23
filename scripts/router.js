@@ -5,13 +5,15 @@ define([
   'parse',
   'scripts/views/login',
   'scripts/views/sign-up',
-  'scripts/views/404'
-], function($, _, Parse, LoginView, SignUpView, ErrorView) {
+  'scripts/views/404',
+  'scripts/views/contacts'
+], function($, _, Parse, LoginView, SignUpView, ErrorView, ContactsView) {
   var AppRouter = Parse.Router.extend({
     routes: {
       // Define some URL routes
       'login': 'showLogin',
       'signUp': 'showSignUp',
+      'contacts': 'showContacts',
       '*actions': 'errorPage'
     },
 
@@ -27,10 +29,17 @@ define([
       signUpView.render();
     },
 
+    showContacts: function() {
+      var contactsView = new ContactsView();
+      contactsView.build();
+    },
+
     errorPage: function() {
       var errorView = new ErrorView();
       errorView.render();
     }
+
+
   });
 
   var initialize = function(){
